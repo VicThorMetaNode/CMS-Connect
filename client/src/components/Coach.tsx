@@ -1,8 +1,8 @@
 // Import FC (FunctionalComponent) type
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import CoachRow from './CoachRow'
-
-// Define the type for a Coach
+import { GET_COACHES } from '../queries/coachQueries';
+import Spinner from "./Spinner";
 interface Coach {
   id: string;
   name: string;
@@ -13,24 +13,14 @@ interface Coach {
 
 
 
-const GET_COACHES = gql`
-  query getCoaches {
-    coaches {
-      id
-      name
-      role
-      email
-      phone
-    }
-  }
-`;
+
 
 export const Coach = () => {
   //get the data back from queries 'gql' using 'useQuery'
   //'useQuery' can give use states as loading, error and data
   const { loading, error, data } = useQuery(GET_COACHES);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Spinner />;
   if (error) return <p>Oups... </p>;
 
   return (
