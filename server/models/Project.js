@@ -15,7 +15,7 @@ const ProjectSchema = new mongoose.Schema({
       "BackLog",
       "SpringLog",
       "In Progress",
-      "Under review",
+      "Under Review",
       "Waiting Validation",
       "Completed",
       "Discarded",
