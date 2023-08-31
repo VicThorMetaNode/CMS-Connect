@@ -21,7 +21,7 @@ const ProjectSchema = new mongoose.Schema({
       "Discarded",
     ],
   },
-  CoachId: {
+  coachId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Coach",
   },

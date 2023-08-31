@@ -5,7 +5,7 @@
 const Project = require("../models/Project");
 const Coach = require("../models/Coach");
 
-//when using difference sources as projects and clients we need to create TYPES
+//when using difference sources as projects and coaches we need to create TYPES
 const {
   GraphQLObjectType,
   GraphQLID,
@@ -15,7 +15,8 @@ const {
   GraphQLNonNull,
   GraphQLEnumType,
 } = require("graphql");
-//CLIENT TYPE
+
+//COACH TYPE
 const CoachType = new GraphQLObjectType({
   name: "Coach",
   fields: () => ({
@@ -115,7 +116,7 @@ const mutation = new GraphQLObjectType({
         id: { type: GraphQLNonNull(GraphQLID) },
       },
       resolve(parent, args) {
-        // Project.find({ clientId: args.id }).then((projects) => {
+        // Project.find({ coachId: args.id }).then((projects) => {
         //   projects.forEach((project) => {
         //     project.deleteOne();
         //   });
@@ -152,10 +153,57 @@ const mutation = new GraphQLObjectType({
           name: args.name,
           description: args.description,
           status: args.status,
-          coachId: args.clientId,
+          coachId: args.coachId,
         });
 
         return project.save();
+      },
+    },
+    // DELETE PROJECT
+    deleteProject: {
+      type: ProjectType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLID) },
+      },
+      resolve(parent, args) {
+        return Project.findByIdAndRemove(args.id);
+      },
+    },
+    //UPDATE PROJECT
+    updateProject: {
+      type: ProjectType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLID) },
+        name: { type: GraphQLString },
+        description: { type: GraphQLString },
+        status: {
+          type: new GraphQLEnumType({
+            name: "ProjectStatusUpdate",
+            values: {
+              new: { value: "Not Started" },
+              backLog: { value: "BackLog" },
+              springLog: { value: "SpringLog" },
+              progress: { value: "In Progress" },
+              review: { value: "Under Review" },
+              validation: { value: "Waiting Validation" },
+              discarded: { value: "Discarded" },
+              completed: { value: "Completed" },
+            },
+          }),
+        },
+      },
+      resolve(parent, args) {
+        return Project.findByIdAndUpdate(
+          args.id,
+          {
+            $set: {
+              name: args.name,
+              description: args.description,
+              status: args.status,
+            },
+          },
+          { new: true } //if does not exist then create one
+        );
       },
     },
   },
