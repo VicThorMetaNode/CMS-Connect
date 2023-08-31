@@ -1,6 +1,6 @@
 # CMS-Connect
 
-<b>Server Side<b>
+<em>Server Side<em>
 <p>🧰Tools used:</p>
 <p>🗹 MongoDB</p>
 <p>🗹 MongoCompass</p>
