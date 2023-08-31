@@ -11,10 +11,6 @@ interface Coach {
   phone: string;
 }
 
-
-
-
-
 export const Coach = () => {
   //get the data back from queries 'gql' using 'useQuery'
   //'useQuery' can give use states as loading, error and data
