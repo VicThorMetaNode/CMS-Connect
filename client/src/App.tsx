@@ -1,10 +1,31 @@
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import { Coach } from "./components/Coach.tsx";
 
+const cache = new InMemoryCache({
+  typePolicies: {
+    Query: {
+      fields: {
+        coaches: {
+          merge(_, incoming) {
+            //originally using existing, incoming but Typescript error because not used. So use of '_'
+            return incoming;
+          },
+        },
+        projects: {
+          merge(_, incoming) {
+            //originally using existing, incoming but Typescript error because not used. So use of '_'
+            return incoming;
+          },
+        },
+      },
+    },
+  },
+});
+
 //create coach
 const coach = new ApolloClient({
   uri: "http://localhost:5000/graphql",
-  cache: new InMemoryCache(),
+  cache,
 });
 
 function App() {
