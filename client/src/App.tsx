@@ -1,6 +1,8 @@
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import { Coach } from "./components/Coach.tsx";
 import AddCoachModal from "./components/AddCoachModal.tsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -37,6 +39,7 @@ function App() {
           <div className="max-w-980 md:h-[calc(100vh - 40px)] mx-auto h-screen w-full px-2 md:w-[80%] md:px-0">
             <AddCoachModal />
             <Coach />
+            <ToastContainer />
           </div>
         </section>
       </ApolloProvider>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_COACH } from "../mutations/coachMutations";
 import { GET_COACHES } from "../queries/coachQueries";
+import { toast } from "react-toastify";
 
 interface Coach {
   id: string;
@@ -16,9 +17,31 @@ const AddCoachModal = () => {
   const [role, setRole] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
+  //close modal once submitted
   const [isModalOpen, setIsModalOpen] = useState(false);
+  //make sure submit only once all fields filled
+  const [isFormReady, setIsFormReady] = useState(false);
 
   const [addCoachMutation] = useMutation<{ addCoach: Coach }>(ADD_COACH);
+
+  //handle form input and make sure all are filled
+  const isFormValid = () => {
+    return (
+      name.trim() !== "" &&
+      role.trim() !== "" &&
+      email.trim() !== "" &&
+      phone.trim() !== ""
+    );
+  };
+
+  //handle cancel button: clean all fields
+  const handleCancel = () => {
+    setName("");
+    setRole("");
+    setEmail("");
+    setPhone("");
+    // You can add additional state resets if needed
+  };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -56,10 +79,29 @@ const AddCoachModal = () => {
         // Close the modal or show a success message
         // Close the modal
         setIsModalOpen(false);
+        // Display a success notification
+        toast.success("Coach added successfully!", {
+          position: "top-right", // Adjust the position as needed
+          autoClose: 3000, // Duration in milliseconds
+          hideProgressBar: false, // Show progress bar
+          closeOnClick: true, // Close the notification when clicked
+          pauseOnHover: true, // Pause the timer when hovered
+          draggable: true, // Allow dragging the notification
+        });
       }
     } catch (error) {
       // Handle errors here, e.g., display an error message
       console.error("Error adding coach:", error);
+
+      // Display an error notification
+      toast.error("Error adding coach. Please try again later.", {
+        position: "top-right", // Adjust the position as needed
+        autoClose: 5000, // Duration in milliseconds
+        hideProgressBar: false, // Show progress bar
+        closeOnClick: true, // Close the notification when clicked
+        pauseOnHover: true, // Pause the timer when hovered
+        draggable: true, // Allow dragging the notification
+      });
     }
   };
 
@@ -85,7 +127,10 @@ const AddCoachModal = () => {
                   className="input w-full max-w-xs"
                   id="name"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                    setIsFormReady(isFormValid());
+                  }}
                 />
               </div>
               <div className="mb-3">
@@ -96,7 +141,10 @@ const AddCoachModal = () => {
                   className="input w-full max-w-xs"
                   id="role"
                   value={role}
-                  onChange={(e) => setRole(e.target.value)}
+                  onChange={(e) => {
+                    setRole(e.target.value);
+                    setIsFormReady(isFormValid());
+                  }}
                 />
               </div>
               <div className="mb-3">
@@ -107,7 +155,10 @@ const AddCoachModal = () => {
                   className="input w-full max-w-xs"
                   id="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    setIsFormReady(isFormValid());
+                  }}
                 />
               </div>
               <div className="mb-3">
@@ -118,15 +169,18 @@ const AddCoachModal = () => {
                   className="input w-full max-w-xs"
                   id="phone"
                   value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
+                  onChange={(e) => {
+                    setPhone(e.target.value);
+                    setIsFormReady(isFormValid());
+                  }}
                 />
               </div>
-              <button className="btn" type="submit">
+              <button className="btn" type="submit" disabled={!isFormReady}>
                 Submit
               </button>
             </form>
-            <label htmlFor="my_modal_6" className="btn">
-              Close!
+            <label htmlFor="my_modal_6" className="btn" onClick={handleCancel}>
+              Cancel
             </label>
           </div>
         </div>
