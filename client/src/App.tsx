@@ -1,5 +1,6 @@
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import { Coach } from "./components/Coach.tsx";
+import AddCoachModal from "./components/AddCoachModal.tsx";
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -34,6 +35,7 @@ function App() {
       <ApolloProvider client={coach}>
         <section className="w-full h-[100%] bg-gradient-to-br from-rose-400 via-fuchsia-500 to-indigo-500">
           <div className="max-w-980 md:h-[calc(100vh - 40px)] mx-auto h-screen w-full px-2 md:w-[80%] md:px-0">
+            <AddCoachModal />
             <Coach />
           </div>
         </section>
