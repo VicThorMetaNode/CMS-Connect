@@ -34,8 +34,18 @@ const AddCoachModal = () => {
     );
   };
 
-  //handle cancel button: clean all fields
+  //handle cancel button: clean all fields + toast
   const handleCancel = () => {
+    //display notification
+    toast.warn("Form reset.", {
+      position: "top-center",
+      autoClose: 2000, // You can adjust the duration as needed
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    });
+    //reset form fields
     setName("");
     setRole("");
     setEmail("");

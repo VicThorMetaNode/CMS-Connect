@@ -3,6 +3,7 @@ import { Coach } from "./components/Coach.tsx";
 import AddCoachModal from "./components/AddCoachModal.tsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Projects from "./components/Projects.tsx";
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -37,6 +38,7 @@ function App() {
       <ApolloProvider client={coach}>
         <section className="w-full h-[100%] bg-gradient-to-br from-rose-400 via-fuchsia-500 to-indigo-500">
           <div className="max-w-980 md:h-[calc(100vh - 40px)] mx-auto h-screen w-full px-2 md:w-[80%] md:px-0">
+            <Projects />
             <AddCoachModal />
             <Coach />
             <ToastContainer />
