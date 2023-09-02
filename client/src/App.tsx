@@ -1,9 +1,9 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
-import { Coach } from "./components/Coach.tsx";
-import AddCoachModal from "./components/AddCoachModal.tsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Projects from "./components/Projects.tsx";
+import Home from "./pages/Home";
+import { Project } from "./pages/Project";
 
 const cache = new InMemoryCache({
   typePolicies: {
@@ -36,14 +36,17 @@ function App() {
   return (
     <>
       <ApolloProvider client={coach}>
-        <section className="w-full h-[100%] bg-gradient-to-br from-rose-400 via-fuchsia-500 to-indigo-500">
-          <div className="max-w-980 md:h-[calc(100vh - 40px)] mx-auto h-screen w-full px-2 md:w-[80%] md:px-0">
-            <Projects />
-            <AddCoachModal />
-            <Coach />
-            <ToastContainer />
-          </div>
-        </section>
+        <Router>
+          <section className="w-full h-[100%] bg-gradient-to-br from-rose-400 via-fuchsia-500 to-indigo-500">
+            <div className="max-w-980 md:h-[calc(100vh - 40px)] mx-auto h-screen w-full px-2 md:w-[80%] md:px-0">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/project/:id" element={<Project />} />
+              </Routes>
+              <ToastContainer />
+            </div>
+          </section>
+        </Router>
       </ApolloProvider>
     </>
   );
