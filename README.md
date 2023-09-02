@@ -16,7 +16,7 @@
 <p>✔️react-router-dom</p>
 <p>✔️react-icon</p>
 <p>✔️typescript</p>
-<p>✔️</p>
+<p>✔️react-toastify</p>
 <p>✔️</p>
 
 <h2>SERVER SIDE<h2>
