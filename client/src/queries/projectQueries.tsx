@@ -11,5 +11,23 @@ const GET_PROJECTS = gql`
   }
 `;
 
+const GET_PROJECT = gql`
+  query getProject($id: ID!) {
+    project(id: $id) {
+      id
+      name
+      description
+      status
+      coach {
+        id
+        name
+        role
+        email
+        phone
+      }
+    }
+  }
+`;
+
 //No default cause multiple queries
-export { GET_PROJECTS };
+export { GET_PROJECTS, GET_PROJECT };
