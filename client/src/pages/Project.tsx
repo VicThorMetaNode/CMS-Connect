@@ -2,13 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import { useQuery } from "@apollo/client";
 import { GET_PROJECT } from "../queries/projectQueries";
-
-// interface Project {
-//   id: string;
-//   name: string;
-//   description: string;
-//   status: string;
-// }
+import CoachInfo from "../components/CoachInfo";
 
 export const Project = () => {
   //destruct using params
@@ -27,6 +21,7 @@ export const Project = () => {
           <Link to="/" className="btn glass md:hover:glass text-vamp ">
             Back
           </Link>
+          <CoachInfo coach={data.project.coach} />
         </div>
       </div>
     </>
