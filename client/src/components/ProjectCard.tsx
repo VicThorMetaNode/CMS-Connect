@@ -12,7 +12,7 @@ type ProjectCardProps = {
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <>
-      <div className="card md:w-96 bg-gradient-to-br from-indigo-300 to-purple-400 shadow-xl flex items-center text-center">
+      <div className="card bg-gradient-to-br from-indigo-300 to-purple-400 shadow-xl flex items-center text-center">
         <div className="card-body">
           <h5 className="text-black font-semibold">{project.name} </h5>
           <h6 className="text-vamp font-semibold ">

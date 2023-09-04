@@ -14,5 +14,5 @@
 
 body, html {
     height: 100%;
-    /* background-color: theme('colors.main.DEFAULT') !important; */
+    background-color: theme('colors.main.DEFAULT') !important;
   }
