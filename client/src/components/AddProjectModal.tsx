@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { GET_COACHES } from "../queries/coachQueries";
 import { ADD_PROJECT } from "../mutations/projectMutations";
 import { toast } from "react-toastify";
@@ -44,14 +44,18 @@ const AddProjectModal = () => {
   const [isFormReady, setIsFormReady] = useState(false);
 
   //handle form input and make sure all are filled
-  const isFormValid = () => {
+  const isFormValid = useCallback(() => {
     return (
       name.trim() !== "" &&
       description.trim() !== "" &&
       status.trim() !== "" &&
       coachId.trim() !== ""
     );
-  };
+  }, [name, description, status, coachId]);
+
+  useEffect(() => {
+    setIsFormReady(isFormValid());
+  }, [name, description, status, coachId, isFormValid]);
 
   //handle cancel button: clean all fields + toast
   const handleCancel = () => {
