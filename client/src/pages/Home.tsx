@@ -1,4 +1,5 @@
 // import AddCoachModal from "../components/AddCoachModal";
+// import AddCoachModal from "../components/AddCoachModal";
 import AddProjectModal from "../components/AddProjectModal";
 import { Coach } from "../components/Coach";
 import Projects from "../components/Projects";
@@ -11,6 +12,7 @@ const Home = () => {
           <Projects />
           {/* <AddCoachModal /> */}
           <AddProjectModal />
+
           <Coach />
         </div>
       </section>

@@ -136,7 +136,7 @@ const mutation = new GraphQLObjectType({
             values: {
               new: { value: "Not Started" },
               backLog: { value: "BackLog" },
-              springLog: { value: "SpringLog" },
+              sprintLog: { value: "SprintLog" },
               progress: { value: "In Progress" },
               review: { value: "Under Review" },
               validation: { value: "Waiting Validation" },
@@ -170,42 +170,42 @@ const mutation = new GraphQLObjectType({
       },
     },
     //UPDATE PROJECT
-    updateProject: {
-      type: ProjectType,
-      args: {
-        id: { type: GraphQLNonNull(GraphQLID) },
-        name: { type: GraphQLString },
-        description: { type: GraphQLString },
-        status: {
-          type: new GraphQLEnumType({
-            name: "ProjectStatusUpdate",
-            values: {
-              new: { value: "Not Started" },
-              backLog: { value: "BackLog" },
-              springLog: { value: "SpringLog" },
-              progress: { value: "In Progress" },
-              review: { value: "Under Review" },
-              validation: { value: "Waiting Validation" },
-              discarded: { value: "Discarded" },
-              completed: { value: "Completed" },
-            },
-          }),
-        },
-      },
-      resolve(parent, args) {
-        return Project.findByIdAndUpdate(
-          args.id,
-          {
-            $set: {
-              name: args.name,
-              description: args.description,
-              status: args.status,
-            },
-          },
-          { new: true } //if does not exist then create one
-        );
-      },
-    },
+    // updateProject: {
+    //   type: ProjectType,
+    //   args: {
+    //     id: { type: GraphQLNonNull(GraphQLID) },
+    //     name: { type: GraphQLString },
+    //     description: { type: GraphQLString },
+    //     status: {
+    //       type: new GraphQLEnumType({
+    //         name: "ProjectStatusUpdate",
+    //         values: {
+    //           new: { value: "Not Started" },
+    //           backLog: { value: "BackLog" },
+    //           sprintLog: { value: "SprintLog" },
+    //           progress: { value: "In Progress" },
+    //           review: { value: "Under Review" },
+    //           validation: { value: "Waiting Validation" },
+    //           discarded: { value: "Discarded" },
+    //           completed: { value: "Completed" },
+    //         },
+    //       }),
+    //     },
+    //   },
+    //   resolve(parent, args) {
+    //     return Project.findByIdAndUpdate(
+    //       args.id,
+    //       {
+    //         $set: {
+    //           name: args.name,
+    //           description: args.description,
+    //           status: args.status,
+    //         },
+    //       }
+    //       { new: true } //if does not exist then create one
+    //     );
+    //   },
+    // },
   },
 });
 

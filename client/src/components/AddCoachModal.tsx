@@ -1,9 +1,17 @@
 import { useState } from "react";
-import { useMutation } from "@apollo/client";
-import { ADD_COACH } from "../mutations/coachMutations";
+import { useMutation, useQuery } from "@apollo/client";
+import { ADD_PROJECT } from "../mutations/projectMutations";
+import { GET_PROJECTS } from "../queries/projectQueries";
 import { GET_COACHES } from "../queries/coachQueries";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
+interface Project {
+  id: string;
+  name: string;
+  description: string;
+  status: string;
+  coachId: string;
+}
 interface Coach {
   id: string;
   name: string;
@@ -12,11 +20,10 @@ interface Coach {
   phone: string;
 }
 
-const AddCoachModal = () => {
+const AddProjectModal = () => {
   const [name, setName] = useState<string>("");
-  const [role, setRole] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [phone, setPhone] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [coachId, setCoachId] = useState<string>("");
   //close modal once submitted
   const [isModalOpen, setIsModalOpen] = useState(false);
   //make sure submit only once all fields filled
@@ -144,32 +151,17 @@ const AddCoachModal = () => {
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="">Role</label>
-                <input
-                  type="text"
+                <label htmlFor="">Description</label>
+                <textarea
                   placeholder="Type here"
                   className="input w-full max-w-xs"
-                  id="role"
-                  value={role}
+                  id="description"
+                  value={description}
                   onChange={(e) => {
-                    setRole(e.target.value);
+                    setDescription(e.target.value);
                     setIsFormReady(isFormValid());
                   }}
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="">Email</label>
-                <input
-                  type="email"
-                  placeholder="Type here"
-                  className="input w-full max-w-xs"
-                  id="email"
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                    setIsFormReady(isFormValid());
-                  }}
-                />
+                ></textarea>
               </div>
               <div className="mb-3">
                 <label htmlFor="">Phone</label>
@@ -199,4 +191,4 @@ const AddCoachModal = () => {
   );
 };
 
-export default AddCoachModal;
+export default AddProjectModal;

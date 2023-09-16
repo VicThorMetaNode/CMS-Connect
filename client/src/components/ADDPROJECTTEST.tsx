@@ -21,14 +21,30 @@ interface Coach {
   phone: string;
 }
 
+type StatusKey = keyof typeof STATUS_MAP;
+
+const STATUS_MAP = {
+  new: "Not Started",
+  backLog: "BackLog",
+  springLog: "SpringLog",
+  progress: "In Progress",
+  review: "Under Review",
+  validation: "Waiting Validation",
+  discarded: "Discarded",
+  completed: "Completed",
+};
+
 // Utility function to get the key by its value:
+const getKeyByValue = (object: Record<string, string>, value: string) => {
+  return Object.keys(object).find((key) => object[key] === value);
+};
 
 const AddProjectModal = () => {
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [coachId, setCoachId] = useState<string>("");
   //set status as new because 'enum'
-  const [status, setStatus] = useState<string>("new");
+  const [status, setStatus] = useState<StatusKey>("new");
 
   //Get Project Queries
   const [addProjectMutation] = useMutation<{ addProject: Project }>(
@@ -104,7 +120,7 @@ const AddProjectModal = () => {
         // Reset the form fields
         setName("");
         setDescription("");
-        setStatus("");
+        setStatus("new");
         setCoachId("");
 
         // Close the modal or show a success message
@@ -185,20 +201,21 @@ const AddProjectModal = () => {
                       <select
                         className="select select-ghost w-full max-w-xs"
                         id="status"
-                        value={status} // Use the mapping here
+                        value={STATUS_MAP[status]} // Use the mapping here
                         onChange={(e) => {
-                          setStatus(e.target.value); // set default value if not found
+                          const selectedStatus = getKeyByValue(
+                            STATUS_MAP,
+                            e.target.value
+                          );
+                          setStatus((selectedStatus as StatusKey) || "new"); // set default value if not found
                           setIsFormReady(isFormValid());
                         }}
                       >
-                        <option value="new">Not Started</option>
-                        <option value="backLog">BackLog</option>
-                        <option value="sprintLog">SprintLog</option>
-                        <option value="progress">In Progress</option>
-                        <option value="review">Under Review</option>
-                        <option value="validation">Waiting Validation</option>
-                        <option value="discarded">Discarded</option>
-                        <option value="completed">Completed</option>
+                        {Object.entries(STATUS_MAP).map(([key, value]) => (
+                          <option key={key} value={value}>
+                            {value}
+                          </option>
+                        ))}
                       </select>
                     </div>
 

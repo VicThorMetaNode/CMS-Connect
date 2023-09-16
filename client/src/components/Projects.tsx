@@ -14,7 +14,7 @@ interface Project {
 const Projects = () => {
   const { loading, error, data } = useQuery(GET_PROJECTS);
   if (loading) return <Spinner />;
-  if (error) return <p>Oups... </p>;
+  if (error) return <p>Something went wrong </p>;
 
   return (
     <>

@@ -13,7 +13,7 @@ const ProjectSchema = new mongoose.Schema({
     enum: [
       "Not Started",
       "BackLog",
-      "SpringLog",
+      "SprintLog",
       "In Progress",
       "Under Review",
       "Waiting Validation",
