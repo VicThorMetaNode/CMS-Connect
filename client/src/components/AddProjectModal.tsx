@@ -43,7 +43,7 @@ const AddProjectModal = () => {
   //make sure submit only once all fields filled
   const [isFormReady, setIsFormReady] = useState(false);
 
-  //handle form input and make sure all are filled
+  //handle form input and make sure all are filled using callback + useEffect to ensure it is refresh instantly
   const isFormValid = useCallback(() => {
     return (
       name.trim() !== "" &&
@@ -226,7 +226,7 @@ const AddProjectModal = () => {
                     </div>
 
                     <button
-                      className="btn"
+                      className="btn btn-primary"
                       type="submit"
                       disabled={!isFormReady}
                     >
@@ -235,7 +235,7 @@ const AddProjectModal = () => {
                   </form>
                   <label
                     htmlFor="my_modal_6"
-                    className="btn"
+                    className="btn btn-secondary"
                     onClick={handleCancel}
                   >
                     Cancel
