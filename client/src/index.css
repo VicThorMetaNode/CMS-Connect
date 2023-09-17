@@ -14,7 +14,7 @@
 
 html {
   scroll-behavior: initial;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 body, html {
@@ -23,3 +23,14 @@ body, html {
     background-color: theme('colors.main.DEFAULT') !important;
   }
 
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    overflow: auto;
+  }
+  
+
+ 
